@@ -8,7 +8,7 @@ const Task=require('../models/taskModel')
 
 const getTask=async(req,res)=>{
     try {
-        const tasks=await Task.find()
+        const tasks=await Task.find({userId:req.user.id})
         res.status(200).json(tasks)
     } catch (error) {
         res.status(400).json(error)
@@ -34,10 +34,12 @@ const getUniqueTask=async(req,res)=>{
 
 const createTask=async(req,res)=>{
     try {
-        const{task,desc}=req.body
+        const{task,desc,intrest}=req.body
         const create=await Task.create({
         task,
-        desc
+        desc,
+        intrest,
+        userId:req.user.id
     })
     return res.status(201).json({data:create,message:"successful"})
     } catch (error) {
