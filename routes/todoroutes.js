@@ -2,15 +2,16 @@ const express=require('express');
 const router=express.Router();
 const{getTask,getUniqueTask,createTask,updateTask,deleteTask}=require('../controllers/todoControllers');
 const validateToken = require('../middleware/tokenValidate');
-router.use(validateToken)
-router.get("/",getTask)
 
-router.route('/:id').get(getUniqueTask)
+// router.use(validateToken)
+router.get("/",validateToken,getTask)
 
-router.route('/').post(createTask)
+router.get('/:id',validateToken,getUniqueTask)
 
-router.route('/:id').put(updateTask)
+router.post('/',createTask)
 
-router.route('/:id').delete(deleteTask)
+router.put('/:id',updateTask)
+
+router.delete('/:id',deleteTask)
 
 module.exports=router;
