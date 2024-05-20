@@ -40,7 +40,7 @@ const registerUser=async (req,res)=>{
 
     console.log(`User created ${user}`);
 
-    res.json({message:"Register the user"})
+    // res.json({message:"Register the user"})
 }
 
 

@@ -1,5 +1,6 @@
 
 
+const { Error } = require('mongoose')
 const Task=require('../models/taskModel')
 
 
@@ -52,6 +53,16 @@ const createTask=async(req,res)=>{
 
 const updateTask=async(req,res)=>{
     try {
+        const taskk=await Task.findById(req.params.id);
+        if(!taskk){
+            res.status(404)
+            throw new Error("Task not found")
+        }
+
+        // if(taskk.userId.toString()!== req,user.id){
+        //     res.status(404)
+        //     throw new Error("user dont have permision to update other task")
+        // }
         const update=await Task.findByIdAndUpdate(
             req.params.id,
             req.body,
